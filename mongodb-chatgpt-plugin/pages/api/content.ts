@@ -6,7 +6,7 @@ import {
   makeMongoDbEmbeddedContentStore,
   makeOpenAiEmbedder
   } from 'mongodb-chatbot-server';
-import { strict } from 'assert';
+// import { strict } from 'assert';
 import yaml from "yaml"
 
 const {
@@ -17,25 +17,19 @@ const {
   VECTOR_SEARCH_INDEX_NAME,
 } = process.env;
 
-strict(MONGODB_CONNECTION_URI, "Missing MONGODB_CONNECTION_URI");
-strict(MONGODB_DATABASE_NAME, "Missing MONGODB_DATABASE_NAME");
-strict(OPENAI_API_KEY, "Missing OPENAI_API_KEY");
-strict(OPENAI_EMBEDDING_DEPLOYMENT, "Missing OPENAI_EMBEDDING_DEPLOYMENT");
-strict(VECTOR_SEARCH_INDEX_NAME, "Missing VECTOR_SEARCH_INDEX_NAME");
-
 
 const openAiClient = new OpenAIClient(
-  new OpenAIKeyCredential(OPENAI_API_KEY)
+  new OpenAIKeyCredential(OPENAI_API_KEY!)
 );
 
 const embeddedContentStore = makeMongoDbEmbeddedContentStore({
-  connectionUri: MONGODB_CONNECTION_URI,
-  databaseName: MONGODB_DATABASE_NAME,
+  connectionUri: MONGODB_CONNECTION_URI!,
+  databaseName: MONGODB_DATABASE_NAME!,
 });
 
 const embedder = makeOpenAiEmbedder({
   openAiClient,
-  deployment: OPENAI_EMBEDDING_DEPLOYMENT,
+  deployment: OPENAI_EMBEDDING_DEPLOYMENT!,
   backoffOptions: {
     numOfAttempts: 3,
     maxDelay: 5000,
