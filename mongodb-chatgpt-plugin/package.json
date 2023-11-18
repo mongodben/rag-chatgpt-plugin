@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "express-slow-down": "^2.0.1",
     "mongodb-chatbot-server": "^0.1.9",
     "next": "14.0.2",
     "react": "^18",
