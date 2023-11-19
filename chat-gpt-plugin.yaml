@@ -12,13 +12,31 @@ paths:
       parameters:
         - name: q
           in: query
-          description: A query to search for what the user wants. include frontmatter on top of the query featuring the relevant programming language and product, if relevant. See example.
-          example: |
-            ---
-            product: Drivers
-            programmingLanguage: Python
-            ---
-            how to add data to mongodb with the python driver?
           required: true
+          description: |
+            A query to search for what the user wants. Contextualize the query in the conversation.
+
+            include frontmatter on top of the query featuring the relevant `programmingLanguage` and `productName.
+            productName options include: MongoDB Atlas, Atlas Charts, Atlas Search, Aggregation    Framework, MongoDB Server, Compass, MongoDB Connector for BI, Realm SDK, Driver, Atlas App Services, Atlas Streams, Atlas Vector Search ...other MongoDB products
+            programmingLanguage options include: shell, javascript, typescript, python, java, csharp, cpp, ruby, kotlin, c, dart, php, rust, scala, swift, ...other popular programming languages
+            See `example` for use query "add data python".
+          example: |
+            How to add data to MongoDB with the Python Driver?
           schema:
             type: string
+        - name: product
+          in: query
+          description: |
+            The MongoDB product that the user is searching for.
+            productName options include: MongoDB Atlas, Atlas Charts, Atlas Search, Aggregation    Framework, MongoDB Server, Compass, MongoDB Connector for BI, Realm SDK, Driver, Atlas App Services, Atlas Streams, Atlas Vector Search ...other MongoDB products
+          schema:
+            type: string
+          required: true
+        - name: programmingLanguage
+          in: query
+          description: |
+            The programming language that the user is searching for.
+            programmingLanguage options include: shell, javascript, typescript, python, java, csharp, cpp, ruby, kotlin, c, dart, php, rust, scala, swift, ...other popular programming languages
+          schema:
+            type: string
+          required: false

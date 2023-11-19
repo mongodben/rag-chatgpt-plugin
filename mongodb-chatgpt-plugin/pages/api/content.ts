@@ -48,37 +48,35 @@ const findContent = makeDefaultFindContentFunc({
   },
 });
 export default async function handler(
-  req: NextApiRequest,
+  req: NextApiRequest & {query: Record<string, unknown> & {q: string}},
   res: NextApiResponse
 ) {
   if(req.method !== "GET") {
     return res.status(405).json({ message: 'Method not allowed' })
   }
-  const {q} = req.query;
-  if(typeof q !== "string") {
-    return res.status(400).json({ message: 'Invalid query "q"' })
+  if(req.query === undefined || req.query.q === undefined) {
+    return res.status(400).json({ message: 'Invalid query. Must include query param "q"' })
   }try {
 
   } catch (error) {
     console.error(error);
     return res.status(400).json({ message: 'Internal server error' })
   }
-  const query = makeQuery(q);
+  const query = makeQuery(req.query);
   const {content: dbContent} = await findContent({query, ipAddress: "🤷"});
   const content = dbContent.map(({text, url}) => ({text, url}));
   const description = "Use this content to answer the user's question."
   res.status(200).json({ description, content } satisfies ContentResponse)
 }
 
-function makeQuery(query: string): string {
+function makeQuery(query: Record<string, unknown> & {q: string}): string {
   try {
-    // Try parsing the string as JSON
-    const parsedJson = JSON.parse(query);
+
     // If parsing is successful, return the YAML stringification of the parsed JSON
-    return yaml.stringify(parsedJson);
+    return yaml.stringify(query);
   } catch (error) {
     // If it's not valid JSON, return the original string
-    return query;
+    return query.q;
   }
 }
 
