@@ -1,14 +1,13 @@
-# MongDB Docs AI ChatGPT Plugin
+# MongDbAssistant GPT
 
 > **Important** Experimental Prototype
 >
-> This project is an experimental prototype and not an official MongoDB-supported product.
+> This project is an experimental prototype and **is not** an official MongoDB-supported product.
 
-This repository contains a MongoDB Docs AI ChatGPT Plugin. You can use this plugin
-to ground ChatGPT's answers in the MongoDB documentation.
+This repository contains the source code for the **MongDbAssistant** [GPT for ChatGPT](https://openai.com/blog/introducing-gpts).
 
-## Todos
+It contains a plugin that does retrieval augmented generation to ground ChatGPT's answers in the MongoDB documentation. The plugin's source code is in the `mongodb-chatgpt-plugin` directory. The plugin is deployed to a Vercel serverless endpoint.
 
-- [ ] Refactor route from `chat-server` directory to be within `mongodb-chatgpt-plugin` directory
-- [ ] Create a new staging DB for the project
-- [ ] Deploy prototype to Vercel
+You can use the GPT here - <https://chat.openai.com/g/g-g4pJBXMe4-mongodbassistant>
+
+It seems to work quite well. Try it out!
